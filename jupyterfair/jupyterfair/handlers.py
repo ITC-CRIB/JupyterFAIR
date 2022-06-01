@@ -9,7 +9,7 @@ load_dotenv()
 TOKEN = os.getenv('TOKEN')
 
 from jupyterfair.core.connection import Connection
-from jupyterfair.core.four_tu import FourTuResearchData
+from jupyterfair.core.four_tu import FourTuAPI
 
 class RouteHandler(APIHandler):
     # The following decorator should be present on all verb methods (head, get, post,
@@ -27,11 +27,10 @@ class TUHandler(APIHandler):
     def get(self):
         """"List articles for in an account"""
 
-        # TODO: Secure token via config files or env-variables
         BASE_URL = "https://api.figshare.com/v2/account"
         # ===================================================
         connection = Connection(BASE_URL, TOKEN)
-        repo_api = FourTuResearchData(connection)
+        repo_api = FourTuAPI(connection)
         list_of_articles=repo_api.list_articles()
         self.finish(json.dumps(list_of_articles))
 
