@@ -53,15 +53,8 @@ class Item:
         """
         pass
 
-
-
 if __name__ == '__main__':
-    name =  'my article'
-
-    item = Item(name)
-
-    print(item())
-
+    pass
     
 
     
