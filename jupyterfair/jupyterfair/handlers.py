@@ -33,6 +33,9 @@ class TUHandler(APIHandler):
         api = FourTuAPI(connection)
         list_of_articles=api.get_item()
         self.finish(json.dumps(list_of_articles))
+        
+        connection.close_connection() # Connections must be close after all
+        # api calls are executed by the handler
 
 
 def setup_handlers(web_app):
