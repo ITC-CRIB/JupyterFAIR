@@ -30,8 +30,8 @@ class TUHandler(APIHandler):
         BASE_URL = "https://api.figshare.com/v2/account"
         # ===================================================
         connection = Connection(BASE_URL, TOKEN)
-        repo_api = FourTuAPI(connection)
-        list_of_articles=repo_api.list_articles()
+        api = FourTuAPI(connection)
+        list_of_articles=api.get_item()
         self.finish(json.dumps(list_of_articles))
 
 
