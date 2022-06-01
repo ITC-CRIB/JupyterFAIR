@@ -54,7 +54,7 @@ class Connection(object):
         '''
         Implements the HTTP-GET method
 
-        Args:
+        Params:
             request: a valid URL
             stream: enables data streaming
             timeout: request timeout
@@ -73,7 +73,7 @@ class Connection(object):
         '''
         Implements the HTTP-POST method
 
-        Args:
+        Params:
             request: a valid URL
             payload: request JSON-line data payload
             stream: enables data streaming
