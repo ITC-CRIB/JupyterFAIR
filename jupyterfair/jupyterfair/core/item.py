@@ -9,8 +9,14 @@ from jupyterfair.core.connection import Connection
 class Item:
     """Data class for an Item in the data repository"""
     name: str
-    item_id: str = field(init=False)
-    remote_url: str = field(init=False)
+    item_id: str = None
+    remote_url: str = None
+
+    def __call__(self) -> dict:
+        """
+        Returns class attributes as a dictionary
+        """
+        return asdict(self)
 
     def set_item_id(self, item_id: str) -> None:
         """ Sets the value for attribut 'item_id'
@@ -49,6 +55,12 @@ class Item:
 
 
 
+if __name__ == '__main__':
+    name =  'my article'
+
+    item = Item(name)
+
+    print(item())
 
     
 
