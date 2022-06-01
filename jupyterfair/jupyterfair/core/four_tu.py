@@ -1,10 +1,12 @@
 """Implementation of Data Repository for 4TU Reasearch Data"""
 
 
-from jupyterfair.core.data_repository import DataRepository
+from jupyterfair.core.data_repository_api import DataRepositoryAPI
 from jupyterfair.core.connection import Connection
+from jupyterfair.core.item import Item
 
-class FourTuResearchData(DataRepository):
+
+class FourTuAPI(DataRepositoryAPI):
 
     def __init__(self, connection) -> None:
         
@@ -14,33 +16,57 @@ class FourTuResearchData(DataRepository):
             raise TypeError("connection attribute must be an instace of the Connection class")
         return None
         
-    def create_entry(self, payload:dict)-> dict:
+
+    def create_item(self, item:Item)-> dict:
         """Creates an article in a 4TU.ResearchData account
         
         params:
-            payload: metadata required for creating an article
+            item: metadata required for creating an article. An instance of the Item class
         returns: response as JSON-like
         """
-        if payload is None:
-            raise ValueError("payload cannot be empty")
 
-        if not isinstance(payload, dict):
-            raise TypeError("payload must be a dictionary")
+        if not isinstance(item, Item):
+            raise TypeError("payload must be an instance of the Item class")
 
         request_url= self.connection.root_url + '/articles'
-        response=self.connection.post(request=request_url, payload=payload)
+        response=self.connection.post(request=request_url, payload=item())
 
         return response.json()
 
-    def list_articles(self) -> None:
-        """Lists arclitles in an account"""
+
+    def get_item(self) -> dict:
+        """Lists articles in the user account
+        
+        returns:
+            JSON-like array with zero or more articles
+        """
         request_url= self.connection.root_url + '/articles'
         response=self.connection.get(request=request_url)
 
         return response.json()
 
+
+    def update_item(self, item:Item) -> None:
+        """
+        Updates metadata of an existing item in the user account attached to the research data
+        repository.
+
+        params:
+            item: item to be updated.
+            payload: changes to be made to the metadata of an item
         
-    def upload_data(self)-> None:
+        """
+        if not isinstance(item, Item):
+            raise TypeError("payload must be an instance of the Item class")
+
+        pass
+
+
+    def delete_item(self, item) -> None:
+        """
+        Deletes an existing item in the user acccount.
+        params:
+        """
         pass
 
 
